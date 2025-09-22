@@ -15,12 +15,13 @@ async function ensureDb() {
     const seed = {
       users: [],
       events: [
-        { id: 'ev_1', title: 'City Walking Tour', description: 'Explore the city highlights', location: 'Downtown', date: new Date(Date.now()+86400000).toISOString(), price: 2000 },
-        { id: 'ev_2', title: 'Museum Night', description: 'Exclusive after-hours museum access', location: 'Museum Ave', date: new Date(Date.now()+172800000).toISOString(), price: 3500 },
-        { id: 'ev_3', title: 'Wine Tasting', description: 'Local vineyard experience', location: 'Vine Valley', date: new Date(Date.now()+259200000).toISOString(), price: 5000 }
+        { id: 'ev_1', title: 'City Walking Tour', description: 'Explore the city highlights', location: 'Downtown', date: new Date(Date.now()+86400000).toISOString(), price: 2000, rating: 4.5, reviews: [{ user: 'Alex', rating: 5, comment: 'Great tour!' }, { user: 'Sam', rating: 4, comment: 'Nice guide and pace.' }] },
+        { id: 'ev_2', title: 'Museum Night', description: 'Exclusive after-hours museum access', location: 'Museum Ave', date: new Date(Date.now()+172800000).toISOString(), price: 3500, rating: 4.2, reviews: [{ user: 'Jamie', rating: 4, comment: 'Loved the exhibits.' }] },
+        { id: 'ev_3', title: 'Wine Tasting', description: 'Local vineyard experience', location: 'Vine Valley', date: new Date(Date.now()+259200000).toISOString(), price: 5000, rating: 4.8, reviews: [{ user: 'Taylor', rating: 5, comment: 'Fantastic selection!' }] }
       ],
-      bookings: [],
-      passwordResets: []
+  bookings: [],
+  notifications: [],
+  passwordResets: []
     };
     await fs.writeFile(dbPath, JSON.stringify(seed, null, 2), 'utf-8');
   }
