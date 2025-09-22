@@ -25,14 +25,7 @@ app.get('/', (_req, res) => {
   res.json({ name: 'TripNest API', status: 'ok' });
 });
 
-app.use('/auth', authRouter);
-app.use('/events', eventsRouter);
-app.use('/bookings', bookingsRouter);
-app.use('/payments', paymentsRouter);
-app.use('/profile', profileRouter);
-app.use('/notifications', notificationsRouter);
-
-// Also mount API under /api to avoid collisions with SPA routes
+// Serve API only under /api to avoid collisions with SPA routes
 app.use('/api/auth', authRouter);
 app.use('/api/events', eventsRouter);
 app.use('/api/bookings', bookingsRouter);
@@ -45,9 +38,7 @@ const staticDir = join(__dirname, '../../frontend/dist');
 if (existsSync(staticDir)) {
   app.use(express.static(staticDir));
   app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/events') || req.path.startsWith('/bookings') || req.path.startsWith('/payments') || req.path.startsWith('/profile') || req.path.startsWith('/notifications')) {
-      return next();
-    }
+    if (req.path.startsWith('/api')) return next();
     return res.sendFile(join(staticDir, 'index.html'));
   });
 }
