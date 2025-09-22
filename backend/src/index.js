@@ -1,0 +1,41 @@
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import authRouter from './routes/auth.js';
+import eventsRouter from './routes/events.js';
+import bookingsRouter from './routes/bookings.js';
+import paymentsRouter from './routes/payments.js';
+import profileRouter from './routes/profile.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const app = express();
+// Relaxed CORS for development; tighten for production
+app.use(cors());
+app.use(express.json());
+app.use(morgan('dev'));
+
+app.get('/', (_req, res) => {
+  res.json({ name: 'TripNest API', status: 'ok' });
+});
+
+app.use('/auth', authRouter);
+app.use('/events', eventsRouter);
+app.use('/bookings', bookingsRouter);
+app.use('/payments', paymentsRouter);
+app.use('/profile', profileRouter);
+
+// Error handler
+app.use((err, _req, res, _next) => {
+  console.error(err);
+  const status = err.status || 500;
+  res.status(status).json({ error: { code: status, message: err.message || 'Internal error' } });
+});
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`TripNest API running at http://localhost:${PORT}`);
+});
