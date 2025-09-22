@@ -29,12 +29,20 @@ export async function getEvents() {
   return request('/events')
 }
 
+export async function getEvent(id: string) {
+  return request(`/events/${id}`)
+}
+
 export async function createBooking(eventId: string) {
   return request('/bookings', { method: 'POST', body: JSON.stringify({ eventId }) })
 }
 
 export async function pay(bookingId: string) {
   return request('/payments/intent', { method: 'POST', body: JSON.stringify({ bookingId, method: 'mock' }) })
+}
+
+export async function myNotifications() {
+  return request('/notifications/me')
 }
 
 export async function myBookings() {

@@ -3,6 +3,8 @@ import { Routes, Route, Navigate, Link } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline, AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material'
 import { theme } from './theme'
+import EventDetail from './pages/EventDetail'
+import Notifications from './pages/Notifications'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import History from './pages/History'
@@ -28,6 +30,7 @@ export default function App() {
             <Button color="inherit" component={Link} to="/events">Events</Button>
             <Button color="inherit" component={Link} to="/history">History</Button>
             <Button color="inherit" component={Link} to="/profile">Profile</Button>
+            <Button color="inherit" component={Link} to="/notifications">Notifications</Button>
           </Toolbar>
         </AppBar>
         <Container maxWidth="md">
@@ -38,8 +41,10 @@ export default function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/reset" element={<PasswordReset />} />
               <Route path="/events" element={<Protected><Events /></Protected>} />
+              <Route path="/events/:id" element={<Protected><EventDetail /></Protected>} />
               <Route path="/history" element={<Protected><History /></Protected>} />
               <Route path="/profile" element={<Protected><Profile /></Protected>} />
+              <Route path="/notifications" element={<Protected><Notifications /></Protected>} />
             </Routes>
           </Box>
         </Container>
