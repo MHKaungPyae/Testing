@@ -48,7 +48,7 @@ If you prefer direct calls without proxy (e.g., for production), set `VITE_API_B
 
 - backend/
 	- src/
-		- index.ts — server entry
+		- index.js — server entry
 		- routes/ — endpoint routers
 		- services/ — business logic & storage helpers
 		- middleware/ — auth
@@ -64,7 +64,7 @@ If you prefer direct calls without proxy (e.g., for production), set `VITE_API_B
 
 ## Docs
 
-See `spec.md` for full API and flows.
+See `spec.md` for full API and flows. For a write-up on how Copilot was used on this project, read `reflection.md`.
 
 ## Notes
 
