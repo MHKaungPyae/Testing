@@ -9,8 +9,17 @@ async function request(path: string, opts: RequestInit = {}) {
   if (token) headers['Authorization'] = `Bearer ${token}`
   const res = await fetch(`${BASE}${path}`, { ...opts, headers })
   if (!res.ok) {
-    const text = await res.text()
-    throw new Error(text || res.statusText)
+    let message = res.statusText
+    try {
+      const ctErr = res.headers.get('content-type') || ''
+      if (ctErr.includes('application/json')) {
+        const data = await res.json()
+        message = data?.error?.message || data?.message || JSON.stringify(data)
+      } else {
+        message = await res.text()
+      }
+    } catch (_) { /* ignore parse errors */ }
+    throw new Error(message || `Request failed with ${res.status}`)
   }
   const ct = res.headers.get('content-type') || ''
   if (ct.includes('application/json')) return res.json()
