@@ -8,6 +8,7 @@ pnpm-debug.log*
 
 # Build outputs
 dist/
+**/dist/
 build/
 .next/
 out/
@@ -26,6 +27,9 @@ coverage/
 Thumbs.db
 .vscode/
 .idea/
+
+# Local data files
+backend/data/*.json
 
 # Lockfiles (keep if you want deterministic builds)
 # package-lock.json

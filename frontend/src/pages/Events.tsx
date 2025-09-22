@@ -10,9 +10,12 @@ import {
   Snackbar,
   CircularProgress,
   Box,
+  CardActionArea,
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 export default function Events() {
+  const nav = useNavigate()
   const [events, setEvents] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -62,13 +65,15 @@ export default function Events() {
       >
         {events.map(e => (
           <Card key={e.id} variant="outlined">
-            <CardContent>
-              <Typography variant="h6">{e.title}</Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>{e.description}</Typography>
-              <Typography variant="subtitle1" fontWeight={600}>${((e.price || 0)/100).toFixed(2)}</Typography>
-            </CardContent>
+            <CardActionArea onClick={() => nav(`/events/${e.id}`)}>
+              <CardContent>
+                <Typography variant="h6">{e.title}</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>{e.description}</Typography>
+                <Typography variant="subtitle1" fontWeight={600}>${((e.price || 0)/100).toFixed(2)}</Typography>
+              </CardContent>
+            </CardActionArea>
             <CardActions>
-              <Button size="small" variant="contained" onClick={() => book(e.id)}>Book</Button>
+              <Button size="small" variant="contained" onClick={(ev) => { ev.stopPropagation(); book(e.id) }}>Book</Button>
             </CardActions>
           </Card>
         ))}
