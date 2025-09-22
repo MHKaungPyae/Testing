@@ -10,7 +10,6 @@ import bookingsRouter from './routes/bookings.js';
 import paymentsRouter from './routes/payments.js';
 import profileRouter from './routes/profile.js';
 import notificationsRouter from './routes/notifications.js';
-import notificationsRouter from './routes/notifications.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
